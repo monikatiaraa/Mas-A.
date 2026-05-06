@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Miu Miu Shop</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- BUTTON OPEN CART -->
+<button class="open-cart" onclick="toggleCart()">🛒</button>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+<!-- CART -->
+<div class="cart" id="cart">
+
+    <div class="cart-header">
+        <h2>🛒 Keranjang Belanja</h2>
+        <button onclick="toggleCart()">✖</button>
+    </div>
+
+    <!-- EMPTY -->
+    <div id="emptyCart" class="empty">
+        👜<br>Keranjang masih kosong~
+    </div>
+
+    <!-- ITEMS -->
+    <div id="cartItems"></div>
+
+    <!-- TOTAL -->
+    <div class="cart-footer" id="cartFooter">
+        <h3>Total: Rp<span id="total">0</span></h3>
+        <button onclick="checkout()">Checkout 💛</button>
+    </div>
+</div>
+
+<!-- PRODUCT -->
+<div class="product">
+    <h1>Scrunchie</h1>
+    <p>Rp20.000</p>
+    <button onclick="addToCart()">+ Keranjang</button>
+</div>
+
+<!-- CHECKOUT FORM -->
+<div class="checkout" id="checkoutPage">
+    <h1>Form Order</h1>
+
+    <input type="text" placeholder="Nama Lengkap">
+    <input type="text" placeholder="Alamat">
+
+    <div class="summary">
+        <p>Produk: Scrunchie</p>
+        <p>Total: Rp<span id="checkoutTotal">20000</span></p>
+    </div>
+
+    <input type="number" id="bayar" placeholder="Masukkan nominal bayar">
+
+    <button onclick="buatStruk()">Pesan Sekarang 🎀</button>
+</div>
+
+<!-- STRUK -->
+<div class="struk" id="struk">
+    <h2>🧾 STRUK PEMBELIAN</h2>
+    <p>Produk: Scrunchie</p>
+    <p>Jumlah: <span id="qtyStruk"></span></p>
+    <p>Total: Rp<span id="totalStruk"></span></p>
+    <p>Bayar: Rp<span id="bayarStruk"></span></p>
+    <p>Kembalian: Rp<span id="kembaliStruk"></span></p>
+    <h3>Terima kasih 💛</h3>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

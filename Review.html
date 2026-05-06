@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Ulasan Pelanggan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+    <nav class="navbar">
+        <div></div>
+        <ul class="menu">
+            <a href="Index.html" class="btn-about">Home</a>
+            <li class="active"><a href="Review.html" class="btn-about">Review</a>
+        </ul>
+    </nav>
+
+<section class="review-section">
+  <h1>Ulasan Pelanggan</h1>
+
+  <!-- LIST ULASAN -->
+  <div id="reviewList" class="review-list"></div>
+
+  <!-- FORM -->
+  <div class="review-form">
+    <h2>Tulis Ulasanmu ✏️</h2>
+
+    <!-- Bintang -->
+    <div class="stars" id="starContainer">
+      <span data-value="1">★</span>
+      <span data-value="2">★</span>
+      <span data-value="3">★</span>
+      <span data-value="4">★</span>
+      <span data-value="5">★</span>
+    </div>
+
+    <input type="text" id="name" placeholder="Nama kamu">
+    <textarea id="comment" placeholder="Tulis pengalamanmu di sini..."></textarea>
+
+    <button onclick="addReview()">Kirim Ulasan 💖</button>
+  </div>
+</section>
+
+<script>
+let selectedRating = 5;
+
+// Pilih bintang
+document.querySelectorAll(".stars span").forEach(star => {
+  star.addEventListener("click", function () {
+    selectedRating = this.dataset.value;
+    highlightStars(selectedRating);
+  });
+});
+
+function highlightStars(rating) {
+  document.querySelectorAll(".stars span").forEach(star => {
+    star.classList.remove("active");
+    if (star.dataset.value <= rating) {
+      star.classList.add("active");
+    }
+  });
+}
+
+// Tambah ulasan
+function addReview() {
+  const name = document.getElementById("name").value;
+  const comment = document.getElementById("comment").value;
+
+  if (!name || !comment) {
+    alert("Isi semua dulu ya!");
+    return;
+  }
+
+  const review = {
+    name,
+    comment,
+    rating: selectedRating,
+    date: new Date().toLocaleDateString("id-ID")
+  };
+
+  let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+  reviews.unshift(review);
+  localStorage.setItem("reviews", JSON.stringify(reviews));
+
+  displayReviews();
+
+  document.getElementById("name").value = "";
+  document.getElementById("comment").value = "";
+}
+
+// Tampilkan ulasan
+function displayReviews() {
+  const reviewList = document.getElementById("reviewList");
+  let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+
+  reviewList.innerHTML = "";
+
+  reviews.forEach(r => {
+    const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+
+    reviewList.innerHTML += `
+      <div class="review-card">
+        <h3>${r.name}</h3>
+        <small>${r.date}</small>
+        <div class="star-display">${stars}</div>
+        <p>${r.comment}</p>
+      </div>
+    `;
+  });
+}
+
+// Load awal
+displayReviews();
+highlightStars(5);
+</script>
+
+</body>
+</html>
